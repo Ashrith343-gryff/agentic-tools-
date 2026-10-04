@@ -46,6 +46,16 @@ docs/
 4. Install dependencies (e.g., using `pip install -e .` or simply running without external libs if self-contained).
 5. Run tests: `pytest`
 
+## Seven Official Contributor Issues
+This repository was designed around exactly seven main implementation issues for workshop contributors to solve. The reference solutions are implemented in this repository, and the issue descriptions can be found in the `issues/` directory:
+- [B01 — Decision Models & Contracts](issues/B01-decision-models.md)
+- [B02 — Tool Registry](issues/B02-tool-registry.md)
+- [B03 — Deterministic Tool Selector](issues/B03-deterministic-tool-selector.md)
+- [I01 — Tool Ranking & Candidate Selection](issues/I01-tool-ranking.md)
+- [I02 — Jev Decision Backend](issues/I02-jev-decision-backend.md)
+- [I03 — Confidence Gate](issues/I03-confidence-gate.md)
+- [A01 — Agent Routing, Handoff & Cycle Detection](issues/A01-routing-handoff.md)
+
 ## Offline Mode
 You do not need an API key to run this repository. By default, you can run the system entirely offline using the Mock mode (`DECIDER_MODE=mock`). This is fully deterministic and excellent for local testing and CI/CD pipelines.
 
