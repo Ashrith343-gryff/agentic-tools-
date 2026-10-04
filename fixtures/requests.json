@@ -1,0 +1,27 @@
+[
+  {
+    "id": "calc_request",
+    "text": "Calculate 12 * 5",
+    "category": "arithmetic"
+  },
+  {
+    "id": "knowledge_request",
+    "text": "What is MCP?",
+    "category": "knowledge"
+  },
+  {
+    "id": "retrieval_request",
+    "text": "Find information about MCP in the workshop documents",
+    "category": "retrieval"
+  },
+  {
+    "id": "ambiguous_request",
+    "text": "Help me with my project",
+    "category": "ambiguous"
+  },
+  {
+    "id": "unsupported_request",
+    "text": "Book a flight to Tokyo for next Tuesday",
+    "category": "unsupported"
+  }
+]

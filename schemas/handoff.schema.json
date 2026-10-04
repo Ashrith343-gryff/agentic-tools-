@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Handoff",
+  "description": "An agent handoff containing a route, context, and status",
+  "type": "object",
+  "required": ["route", "context", "status"],
+  "properties": {
+    "route": { "$ref": "route.schema.json" },
+    "context": { "type": "object" },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "accepted", "rejected"]
+    }
+  },
+  "additionalProperties": false
+}

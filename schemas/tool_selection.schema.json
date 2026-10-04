@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ToolSelection",
+  "description": "A complete tool-selection result including request, candidates, and decision",
+  "type": "object",
+  "required": ["request", "candidates", "decision"],
+  "properties": {
+    "request": { "type": "string" },
+    "candidates": {
+      "type": "array",
+      "items": { "$ref": "tool_candidate.schema.json" }
+    },
+    "decision": { "$ref": "decision.schema.json" },
+    "scores": {
+      "type": "object",
+      "additionalProperties": { "type": "number" }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ToolCandidate",
+  "description": "A tool capability registered in the tool registry",
+  "type": "object",
+  "required": ["name", "description", "input_schema"],
+  "properties": {
+    "name": { "type": "string" },
+    "description": { "type": "string" },
+    "input_schema": { "type": "object" }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,17 @@
+{
+  "code": 0,
+  "message": "ok",
+  "data": {
+    "decision": "deny",
+    "confidence": 0.88,
+    "probabilities": {
+      "allow": 0.05,
+      "confirm": 0.03,
+      "review": 0.04,
+      "deny": 0.88
+    },
+    "guidance": "No tool call is warranted for this request.",
+    "guidance_source": "jev_preset",
+    "answers": {}
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "code": 0,
+  "message": "ok",
+  "data": {
+    "decision": "allow",
+    "confidence": 0.94,
+    "probabilities": {
+      "allow": 0.94,
+      "confirm": 0.04,
+      "review": 0.01,
+      "deny": 0.01
+    },
+    "guidance": "The tool call is safe to proceed.",
+    "guidance_source": "jev_preset",
+    "answers": {}
+  }
+}

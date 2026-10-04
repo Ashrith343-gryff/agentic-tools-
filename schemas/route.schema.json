@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AgentRoute",
+  "description": "A routing decision from one agent to another",
+  "type": "object",
+  "required": ["source", "target", "reason"],
+  "properties": {
+    "source": { "type": "string" },
+    "target": { "type": "string" },
+    "reason": { "type": "string" },
+    "confidence": { "type": ["number", "null"] }
+  },
+  "additionalProperties": false
+}

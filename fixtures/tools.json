@@ -1,0 +1,57 @@
+[
+  {
+    "name": "calculator",
+    "description": "Performs arithmetic calculations such as addition, subtraction, multiplication, and division",
+    "input_schema": {
+      "type": "object",
+      "required": ["expression"],
+      "properties": {
+        "expression": {
+          "type": "string",
+          "description": "The arithmetic expression to evaluate"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "sqlite_query",
+    "description": "Executes read-only SQL queries against a local SQLite database",
+    "input_schema": {
+      "type": "object",
+      "required": ["query"],
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "The SQL query to execute"
+        },
+        "database": {
+          "type": "string",
+          "description": "Path to the SQLite database file",
+          "default": "default.db"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  {
+    "name": "search_knowledge",
+    "description": "Searches a local knowledge base of workshop documents using semantic retrieval",
+    "input_schema": {
+      "type": "object",
+      "required": ["query"],
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "The search query"
+        },
+        "top_k": {
+          "type": "integer",
+          "description": "Number of results to return",
+          "default": 5
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Decision",
+  "description": "A tool-selection decision made by the decider",
+  "type": "object",
+  "required": ["decision", "tool", "arguments", "reason"],
+  "properties": {
+    "decision": {
+      "type": "string",
+      "enum": ["call_tool", "no_tool", "cannot_decide"]
+    },
+    "tool": {
+      "type": ["string", "null"]
+    },
+    "arguments": {
+      "type": "object"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "confidence": {
+      "type": ["number", "null"]
+    }
+  },
+  "additionalProperties": false
+}

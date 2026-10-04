@@ -1,0 +1,32 @@
+[
+  {
+    "request_id": "calc_request",
+    "decision": "call_tool",
+    "tool": "calculator",
+    "reason": "request requires arithmetic"
+  },
+  {
+    "request_id": "knowledge_request",
+    "decision": "no_tool",
+    "tool": null,
+    "reason": "request can be answered without a tool"
+  },
+  {
+    "request_id": "retrieval_request",
+    "decision": "call_tool",
+    "tool": "search_knowledge",
+    "reason": "request requires searching workshop documents"
+  },
+  {
+    "request_id": "ambiguous_request",
+    "decision": "cannot_decide",
+    "tool": null,
+    "reason": "request is too ambiguous to select a tool"
+  },
+  {
+    "request_id": "unsupported_request",
+    "decision": "cannot_decide",
+    "tool": null,
+    "reason": "no registered capability matches the request"
+  }
+]
