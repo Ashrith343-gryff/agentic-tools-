@@ -2,30 +2,38 @@
 Ranking demo for agentic-tool-decider.
 """
 
-from decider.decision import DecisionEngine, MockSelector
-from decider.schema import ToolCandidate
+from decider.models import ToolCandidate
+from decider.ranking import rank_candidates
 
 
 def main() -> None:
     candidates = [
-        ToolCandidate("search", "Search the web", {}),
-        ToolCandidate("weather", "Get the weather", {}),
-        ToolCandidate("calculator", "Calculate math expressions", {}),
+        ToolCandidate(
+            name="calculator",
+            description="Performs arithmetic calculations such as addition, subtraction, multiplication, and division",
+            input_schema={},
+        ),
+        ToolCandidate(
+            name="sqlite_query",
+            description="Executes read-only SQL queries against a local SQLite database",
+            input_schema={},
+        ),
+        ToolCandidate(
+            name="search_knowledge",
+            description="Searches a local knowledge base of workshop documents using semantic retrieval",
+            input_schema={},
+        )
     ]
 
-    engine = DecisionEngine(selector=MockSelector())
+    request = "Find information about MCP in the workshop documents"
+    print(f"Request: {request}\n")
 
-    request = "What is the weather in Tokyo?"
-    print(f"Request: {request}")
+    ranked, scores = rank_candidates(request, candidates)
 
-    # The MockSelector doesn't naturally do scoring, so we just show the output.
-    decision = engine.decide(request, candidates)
-
-    print("\nCandidates considered:")
-    for c in candidates:
-        print(f" - {c.name}: {c.description}")
-
-    print(f"\nTop choice based on mock logic: {decision.selected_tool}")
+    print("Ranking Results:")
+    for i, candidate in enumerate(ranked):
+        print(f"{i + 1}. {candidate.name} (Score: {scores[candidate.name]:.2f})")
+        print(f"   Description: {candidate.description}")
 
 
 if __name__ == "__main__":

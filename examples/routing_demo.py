@@ -1,37 +1,41 @@
 """
-Routing demo for agentic-tool-decider.
+Routing and handoff demo for agentic-tool-decider.
 """
 
-from decider.router import RouteCandidate, Router
+from decider.models import AgentRoute
+from decider.routing import RouteManager, CycleDetectedError, MaxHopsExceededError
+from decider.handoff import HandoffManager
 
 
 def main() -> None:
-    router = Router()
+    route_manager = RouteManager(max_hops=3)
+    handoff_manager = HandoffManager(route_manager)
 
-    candidates = [
-        RouteCandidate(name="agent_a", description="Handles math", target_id="agent_a"),
-        RouteCandidate(name="agent_b", description="Handles text", target_id="agent_b"),
-    ]
+    print("--- Scenario 1: Valid Chain ---")
+    route1 = AgentRoute(source="main_agent", target="research_agent", reason="Needs deep research")
+    handoff1 = handoff_manager.create_handoff(route1, context={"query": "MCP docs"})
+    print(f"Created handoff: {handoff1.route.source} -> {handoff1.route.target}")
 
-    print("Demonstrating routing to agent_a...")
-    route_path = router.route("I need math help", candidates)
+    route2 = AgentRoute(source="research_agent", target="summarize_agent", reason="Research complete, please summarize")
+    handoff2 = handoff_manager.create_handoff(route2, context={"notes": "MCP is cool"})
+    print(f"Created handoff: {handoff2.route.source} -> {handoff2.route.target}")
 
-    print(f"Routed to: {route_path.target_id}")
-
-    print("\nDemonstrating handoff validation...")
-    print("Adding handoff from parent -> agent_a")
-    router.record_handoff("parent", "agent_a")
-    print("History:", router.get_history())
-
-    print("\nAdding handoff from agent_a -> agent_b")
-    router.record_handoff("agent_a", "agent_b")
-    print("History:", router.get_history())
-
-    print("\nTrying to handoff from agent_b -> parent (cycle)...")
+    print("\n--- Scenario 2: Cycle Detection ---")
+    route3 = AgentRoute(source="summarize_agent", target="main_agent", reason="Returning to main")
     try:
-        router.record_handoff("agent_b", "parent")
-    except ValueError as e:
-        print(f"Cycle detected as expected: {e}")
+        handoff_manager.create_handoff(route3, context={})
+    except CycleDetectedError as e:
+        print(f"Successfully blocked cycle! Error: {e}")
+
+    print("\n--- Scenario 3: Hop Limit Exceeded ---")
+    route_manager_short = RouteManager(max_hops=1)
+    hm_short = HandoffManager(route_manager_short)
+    
+    hm_short.create_handoff(AgentRoute("A", "B", "First hop"), {})
+    try:
+        hm_short.create_handoff(AgentRoute("B", "C", "Second hop"), {})
+    except MaxHopsExceededError as e:
+        print(f"Successfully blocked excessive hops! Error: {e}")
 
 
 if __name__ == "__main__":
