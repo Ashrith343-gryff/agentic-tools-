@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
     
     - name: Set up Python 3.12
       uses: actions/setup-python@v5
@@ -24,6 +26,19 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         pip install -e .
         
+    - name: Check Contributor Boundaries
+      env:
+        GITHUB_ACTIONS: "true"
+        AUTHOR_ASSOCIATION: ${{ github.event.pull_request.author_association }}
+        HEAD_REF: ${{ github.head_ref }}
+        PR_BODY: ${{ github.event.pull_request.body }}
+      run: |
+        if [ "${{ github.event_name }}" = "pull_request" ]; then
+          python .github/scripts/check_rules.py origin/${{ github.base_ref }}
+        else
+          python .github/scripts/check_rules.py
+        fi
+
     - name: Check with ruff
       run: |
         ruff check .
