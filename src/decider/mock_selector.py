@@ -52,19 +52,19 @@ class MockSelector(Selector):
                 reason="request can be answered without a tool",
             )
 
-        # Ambiguous request
-        if "help" in req_lower and "project" in req_lower:
-            return Decision(
-                decision="cannot_decide",
-                tool=None,
-                arguments={},
-                reason="request is too ambiguous to select a tool",
-            )
+     # Ambiguous request check
+if ("help" in req_lower and "project" in req_lower) or "do something" in req_lower or "ambiguous" in req_lower:
+    return Decision(
+        decision="cannot_decide",
+        tool=None,
+        arguments={},
+        reason="request is too ambiguous to select a tool",
+    )
 
-        # Unsupported request
-        return Decision(
-            decision="cannot_decide",
-            tool=None,
-            arguments={},
-            reason="no registered capability matches the request",
-        )
+# Fallback for unsupported / unknown request
+return Decision(
+    decision="cannot_decide",
+    tool=None,
+    arguments={},
+    reason="no registered capability matches the request",
+)
